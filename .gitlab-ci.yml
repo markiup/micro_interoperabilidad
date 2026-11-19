@@ -1,0 +1,85 @@
+stages:
+  - setup
+  - build
+  - deploy
+
+variables:
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  project_name: 'micro_interoperabilidad'
+  home: '/home/usgitlab'
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "desarrollo"
+      variables:
+        ip_server: '10.10.1.243'
+        path_server: $home/micros/$project_name
+        environment: 'des'
+    - if: $CI_COMMIT_REF_NAME == "pruebas"
+      variables:
+        ip_server: '10.10.1.105'
+        path_server: $home/micros/$project_name
+        environment: 'test'
+    - if: $CI_COMMIT_REF_NAME == "master"
+      variables:
+        ip_server: '192.168.1.92'
+        path_server: $home/micros/$project_name
+        environment: 'prod'
+    - when: always
+
+# TRABAJO OCULTO PARA CACHE SE USA EN LOS JOBS CON EXTENDS
+.dependencies_cache:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+      - node_modules
+    policy: pull-push
+
+setup_app:
+  stage: setup
+  script:
+    - npm install -f
+  extends: .dependencies_cache
+  tags:
+    - back
+    - nest
+  only:
+    - desarrollo
+    - pruebas
+    - master
+
+build_app:
+  stage: build
+  needs: ['setup_app']
+  script:
+    - npm run build --prod
+    - cp ./src/ecosystem.config.js ./dist/main
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/dist
+  extends: .dependencies_cache
+  tags:
+    - back
+    - nest
+  only:
+    - desarrollo
+    - pruebas
+    - master
+
+deploy_app:
+  stage: deploy
+  needs: ['build_app']
+  script:
+    - ssh $NEST_SSH_USUARIO@$ip_server " rm -rf $path_server"
+    - scp -rp dist/main $NEST_SSH_USUARIO@$ip_server:$path_server
+    - ssh $NEST_SSH_USUARIO@$ip_server "cd $path_server;pm2 delete $project_name;pm2 startOrRestart ecosystem.config.js -i 2 --env $environment;pm2 save"
+  tags:
+    - back
+    - nest
+  only:
+    - desarrollo
+    - pruebas
+    - master
