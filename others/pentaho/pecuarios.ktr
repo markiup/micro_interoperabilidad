@@ -455,6 +455,11 @@
       <to>Database lookup 2 2</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Database lookup 2 2</from>
+      <to>Table output 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>sc_renagro_mag-pecuarias</name>
