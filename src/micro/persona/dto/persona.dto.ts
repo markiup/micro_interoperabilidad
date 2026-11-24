@@ -51,30 +51,6 @@ export class PersonaDto {
   correoElectronico: string;
 
   @ApiProperty({
-    title: 'per_total_cultivos',
-    description: 'Total de cultivos registrados',
-  })
-  totalCultivos: number;
-
-  @ApiProperty({
-    title: 'per_actividad_pecuaria',
-    description: 'Indica si realiza actividad pecuaria',
-  })
-  actividadPecuaria: boolean;
-
-  @ApiProperty({
-    title: 'per_asociado',
-    description: 'Indica si pertenece a una asociación',
-  })
-  asociado: boolean;
-
-  @ApiProperty({
-    title: 'per_riego',
-    description: 'Indica si dispone de riego',
-  })
-  riego: boolean;
-
-  @ApiProperty({
     title: 'per_fuente',
     description: 'Fuente de origen del registro de la persona',
   })

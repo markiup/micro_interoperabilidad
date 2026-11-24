@@ -30,18 +30,6 @@ export class PersonaEntity extends BaseEntity {
   @Column({ name: 'per_correo_electronico', nullable: true })
   correoElectronico: string;
 
-  @Column({ name: 'per_total_cultivos', default: 0, nullable: true })
-  totalCultivos: number;
-
-  @Column({ name: 'per_actividad_pecuaria', default: false, nullable: true })
-  actividadPecuaria: boolean;
-
-  @Column({ name: 'per_asociado', default: false, nullable: true })
-  asociado: boolean;
-
-  @Column({ name: 'per_riego', default: false, nullable: true })
-  riego: boolean;
-
   @Column({ name: 'per_fuente' })
   fuente: string;
 
