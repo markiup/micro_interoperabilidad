@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -15,7 +15,7 @@ import { HealthModule } from './system/health/health.module';
       isGlobal: true,
       envFilePath: '.des.env',
     }),
-    TypeOrmModule.forRoot({
+    /* TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST_DATABASE,
       port: Number(process.env.PORT_DATABASE),
@@ -27,8 +27,32 @@ import { HealthModule } from './system/health/health.module';
       synchronize: false,
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
+    }),*/
+    TypeOrmModule.forRootAsync({
+      name: 'renagroConnection',
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get<string>('DB_HOST'),
+        port: Number(config.get<number>('DB_PORT')),
+        username: config.get<string>('DB_USERNAME'),
+        password: String(config.get<string>('DB_PASSWORD')),
+        database: config.get<string>('DB_NAME'),
+        schema: config.get<string>('DB_SCHEMA_INTEROPERABILIDAD'),
+        entities: [],
+        synchronize: false,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        extra: {
+          max: Number(config.get<number>('DB_POOL_MAX')) || 2,
+        },
+        retryDelay: Number(config.get<number>('RETRYDELAY_DATABASE')),
+        retryAttempts: Number(config.get<number>('RETRYATTEMPTS_DATABASE')),
+      }),
     }),
-    ProductorModule,
+    //ProductorModule,
     HealthModule,
   ],
   controllers: [],
