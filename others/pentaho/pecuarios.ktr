@@ -437,194 +437,20 @@
   <order>
     <hop>
       <from>sc_renagro_mag-pecuarias</from>
-      <to>Database lookup</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>infocampo-pecuarios</from>
-      <to>Database lookup 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>afc - pecuarios</from>
-      <to>Database lookup 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Database lookup</from>
-      <to>Filter rows</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Database lookup 2</from>
-      <to>Filter rows 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows 2</from>
-      <to>Table output 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 2 2</from>
-      <to>Filter rows 3</to>
+      <from>infocampo-pecuarios</from>
+      <to>Table output 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filter rows 3</from>
+      <from>afc - pecuarios</from>
       <to>Table output 2 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>sc_interoperabilidad</schema>
-      <table>personas</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>per_identificacion</name>
-        <field>per_numero_cedula</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>per_id</name>
-        <rename>per_id</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>368</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup 2</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>sc_interoperabilidad</schema>
-      <table>personas</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>per_identificacion</name>
-        <field>per_numero_cedula</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>per_id</name>
-        <rename>per_id</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup 2 2</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>sc_interoperabilidad</schema>
-      <table>personas</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>per_identificacion</name>
-        <field>per_numero_cedula</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>per_id</name>
-        <rename>per_id</rename>
-        <default/>
-        <type>None</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
@@ -655,6 +481,10 @@
     <return_field/>
     <fields>
       <field>
+        <column_name>pec_numero_cedula</column_name>
+        <stream_name>pec_numero_cedula</stream_name>
+      </field>
+      <field>
         <column_name>pec_bovinos</column_name>
         <stream_name>pec_bovinos</stream_name>
       </field>
@@ -674,10 +504,6 @@
         <column_name>pec_fuente</column_name>
         <stream_name>pec_fuente</stream_name>
       </field>
-      <field>
-        <column_name>per_id</column_name>
-        <stream_name>per_id</stream_name>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -688,8 +514,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>32</yloc>
+      <xloc>368</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -723,6 +549,10 @@
     <return_field/>
     <fields>
       <field>
+        <column_name>pec_numero_cedula</column_name>
+        <stream_name>pec_numero_cedula</stream_name>
+      </field>
+      <field>
         <column_name>pec_bovinos</column_name>
         <stream_name>pec_bovinos</stream_name>
       </field>
@@ -742,10 +572,6 @@
         <column_name>pec_fuente</column_name>
         <stream_name>pec_fuente</stream_name>
       </field>
-      <field>
-        <column_name>per_id</column_name>
-        <stream_name>per_id</stream_name>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -756,7 +582,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>880</xloc>
+      <xloc>384</xloc>
       <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
@@ -791,6 +617,10 @@
     <return_field/>
     <fields>
       <field>
+        <column_name>per_identificacion</column_name>
+        <stream_name>per_identificacion</stream_name>
+      </field>
+      <field>
         <column_name>pec_bovinos</column_name>
         <stream_name>pec_bovinos</stream_name>
       </field>
@@ -810,10 +640,6 @@
         <column_name>pec_fuente</column_name>
         <stream_name>pec_fuente</stream_name>
       </field>
-      <field>
-        <column_name>per_id</column_name>
-        <stream_name>per_id</stream_name>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -824,8 +650,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>240</yloc>
+      <xloc>368</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1032,7 +858,7 @@ limit 5</sql>
     </partitioning>
     <connection>bdc2</connection>
     <sql>select
-	h.per_identificacion,
+	h.per_identificacion as pec_numero_cedula,
 	case
 		when upper(hipr.tipo_pecuario_origen) like '%BOVINO%' then true
 		else false
@@ -1052,7 +878,7 @@ limit 5</sql>
     then true
 		else false
 	end as pec_otras_especies,
-	'INFOCAMPO' as fuente
+	'INFOCAMPO' as pec_fuente
 from
 	sc_infocampo.hom_infocampo_productor_renagro h
 left join sc_infocampo_pecuario.hom_infocampo_pecuario_renagro hipr
@@ -1069,11 +895,11 @@ limit 5</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>per_identificacion</name>
+        <name>pec_numero_cedula</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>per_identificacion</comments>
+        <origin>infocampo-pecuarios</origin>
+        <comments>pec_numero_cedula</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -1095,7 +921,7 @@ limit 5</sql>
         <name>pec_bovinos</name>
         <length>-1</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>infocampo-pecuarios</origin>
         <comments>pec_bovinos</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1118,7 +944,7 @@ limit 5</sql>
         <name>pec_porcinos</name>
         <length>-1</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>infocampo-pecuarios</origin>
         <comments>pec_porcinos</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1141,7 +967,7 @@ limit 5</sql>
         <name>pec_aves</name>
         <length>-1</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>infocampo-pecuarios</origin>
         <comments>pec_aves</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1164,7 +990,7 @@ limit 5</sql>
         <name>pec_otras_especies</name>
         <length>-1</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>infocampo-pecuarios</origin>
         <comments>pec_otras_especies</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1184,11 +1010,11 @@ limit 5</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>fuente</name>
+        <name>pec_fuente</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
-        <comments>fuente</comments>
+        <origin>infocampo-pecuarios</origin>
+        <comments>pec_fuente</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -1232,7 +1058,7 @@ limit 5</sql>
     </partitioning>
     <connection>bdc2</connection>
     <sql>select
-	p.per_identificacion,
+	p.per_identificacion as pec_numero_cedula,
 	case
 		when exists (
 		select
@@ -1310,11 +1136,11 @@ limit 5</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>per_identificacion</name>
+        <name>pec_numero_cedula</name>
         <length>255</length>
         <precision>-1</precision>
         <origin>sc_renagro_mag-pecuarias</origin>
-        <comments>per_identificacion</comments>
+        <comments>pec_numero_cedula</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -1457,111 +1283,6 @@ limit 5</sql>
     <GUI>
       <xloc>160</xloc>
       <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>per_id</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows 2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output 2</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>per_id</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows 3</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output 2 2</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>per_id</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>592</xloc>
-      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
