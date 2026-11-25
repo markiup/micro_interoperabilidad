@@ -8,12 +8,6 @@ export class UbicacionDto {
   id: number;
 
   @ApiProperty({
-    title: 'per_id',
-    description: 'Identificador de la persona asociada',
-  })
-  perId: number;
-
-  @ApiProperty({
     title: 'ubi_bol_id',
     description:
       'Identificador de la boleta o terreno asociado al productor en la fuente',
@@ -67,6 +61,12 @@ export class UbicacionDto {
     description: 'Fuente de origen del registro de ubicación',
   })
   fuente: string;
+
+  @ApiProperty({
+    title: 'ubi_numero_cedula',
+    description: 'Número de cédula del productor',
+  })
+  numeroCedula: string;
 
   @ApiProperty({
     title: 'ubi_reg_usu',

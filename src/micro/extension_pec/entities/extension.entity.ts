@@ -5,9 +5,6 @@ export class ExtensionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'ext_id' })
   id: number;
 
-  @Column({ name: 'per_id' })
-  perId: number;
-
   @Column({ name: 'ext_servicio_recibido', nullable: true })
   servicioRecibido: string;
 
@@ -19,6 +16,12 @@ export class ExtensionEntity extends BaseEntity {
 
   @Column({ name: 'ext_fuente' })
   fuente: string;
+
+  @Column({ name: 'ext_numero_cedula', nullable: true })
+  numeroCedula: string;
+
+  @Column({ name: 'ext_asociacion_nombre', nullable: true })
+  asociacionNombre: string;
 
   // Auditoría
   @Column({ name: 'ext_reg_usu', nullable: false, default: 1 })

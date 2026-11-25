@@ -5,9 +5,6 @@ export class UbicacionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'ubi_id' })
   id: number;
 
-  @Column({ name: 'per_id' })
-  perId: number;
-
   @Column({ name: 'ubi_bol_id', nullable: true })
   bolId: number;
 
@@ -40,6 +37,9 @@ export class UbicacionEntity extends BaseEntity {
 
   @Column({ name: 'ubi_fuente' })
   fuente: string;
+
+  @Column({ name: 'ubi_numero_cedula', nullable: true })
+  numeroCedula: string;
 
   // Auditoría
   @Column({ name: 'ubi_reg_usu', nullable: false, default: 1 })

@@ -8,12 +8,6 @@ export class ExtensionDto {
   id: number;
 
   @ApiProperty({
-    title: 'per_id',
-    description: 'Identificador de la persona asociada',
-  })
-  perId: number;
-
-  @ApiProperty({
     title: 'ext_servicio_recibido',
     description: 'Servicio de extensión agrícola recibido',
   })
@@ -36,6 +30,18 @@ export class ExtensionDto {
     description: 'Fuente de origen del registro',
   })
   fuente: string;
+
+  @ApiProperty({
+    title: 'ext_numero_cedula',
+    description: 'Número de cédula del productor',
+  })
+  numeroCedula: string;
+
+  @ApiProperty({
+    title: 'ext_asociacion_nombre',
+    description: 'Nombre de la asociación o cooperativa a la que pertenece',
+  })
+  asociacionNombre: string;
 
   @ApiProperty({
     title: 'ext_reg_usu',

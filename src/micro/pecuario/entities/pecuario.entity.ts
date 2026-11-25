@@ -5,9 +5,6 @@ export class PecuariaEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'pec_id' })
   id: number;
 
-  @Column({ name: 'per_id' })
-  perId: number;
-
   @Column({ name: 'pec_bovinos', default: false, nullable: true })
   bovinos: boolean;
 
@@ -22,6 +19,9 @@ export class PecuariaEntity extends BaseEntity {
 
   @Column({ name: 'pec_fuente' })
   fuente: string;
+
+  @Column({ name: 'pec_numero_cedula', nullable: true })
+  numeroCedula: string;
 
   // Auditoría
   @Column({ name: 'pec_reg_usu', nullable: false, default: 1 })

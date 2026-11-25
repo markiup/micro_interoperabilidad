@@ -8,18 +8,6 @@ export class CultivoDto {
   id: number;
 
   @ApiProperty({
-    title: 'per_id',
-    description: 'Identificador de la persona asociada',
-  })
-  perId: number;
-
-  @ApiProperty({
-    title: 'ubi_id',
-    description: 'Identificador de la ubicación asociada',
-  })
-  ubiId: number;
-
-  @ApiProperty({
     title: 'cul_nombre',
     description: 'Nombre del cultivo',
   })
@@ -90,6 +78,24 @@ export class CultivoDto {
     description: 'Sistema de riego utilizado',
   })
   rieSistema: string;
+
+  @ApiProperty({
+    title: 'cul_numero_cedula',
+    description: 'Número de cédula del productor',
+  })
+  numeroCedula: string;
+
+  @ApiProperty({
+    title: 'cul_riego',
+    description: 'Tipo o detalle de riego',
+  })
+  riego: string;
+
+  @ApiProperty({
+    title: 'cul_rie_acceso',
+    description: 'Indica si tiene acceso a riego',
+  })
+  rieAcceso: boolean;
 
   @ApiProperty({
     title: 'cul_reg_usu',

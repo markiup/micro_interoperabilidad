@@ -8,12 +8,6 @@ export class PecuariaDto {
   id: number;
 
   @ApiProperty({
-    title: 'per_id',
-    description: 'Identificador de la persona asociada',
-  })
-  perId: number;
-
-  @ApiProperty({
     title: 'pec_bovinos',
     description: 'Indica presencia de bovinos',
   })
@@ -42,6 +36,12 @@ export class PecuariaDto {
     description: 'Fuente de origen del registro pecuario',
   })
   fuente: string;
+
+  @ApiProperty({
+    title: 'pec_numero_cedula',
+    description: 'Número de cédula del productor',
+  })
+  numeroCedula: string;
 
   @ApiProperty({
     title: 'pec_reg_usu',

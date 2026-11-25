@@ -5,12 +5,6 @@ export class CultivoEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'cul_id' })
   id: number;
 
-  @Column({ name: 'per_id' })
-  perId: number;
-
-  @Column({ name: 'ubi_id', nullable: true })
-  ubiId: number;
-
   @Column({ name: 'cul_nombre' })
   nombre: string;
 
@@ -53,6 +47,15 @@ export class CultivoEntity extends BaseEntity {
 
   @Column({ name: 'cul_rie_sistema', nullable: true })
   rieSistema: string;
+
+  @Column({ name: 'cul_numero_cedula', nullable: true })
+  numeroCedula: string;
+
+  @Column({ name: 'cul_riego', nullable: true })
+  riego: string;
+
+  @Column({ name: 'cul_rie_acceso', nullable: true })
+  rieAcceso: boolean;
 
   // Auditoría
   @Column({ name: 'cul_reg_usu', nullable: false, default: 1 })
