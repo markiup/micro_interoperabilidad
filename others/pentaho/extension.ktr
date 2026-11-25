@@ -464,8 +464,6 @@
     </partitioning>
     <connection>mp_renagro</connection>
     <sql>select
-	distinct on
-	(p.per_identificacion)
 	p.per_identificacion as ext_numero_cedula,
 	coalesce(
 		sc_renagro_mag.catalogo_descripcion(b.bol_exten_agricola_recibida, '444'),
@@ -480,13 +478,17 @@
 	'RENAGRO' as ext_fuente
 from
 	sc_renagro_mag.personas p
-inner join sc_renagro_mag.boletas b
-    on
-	p.per_id = b.per_id
-order by
+inner join sc_renagro_mag.boletas b on
+	b.per_id = p.per_id
+where
+	(b.bol_eliminado is not true
+		or b.bol_eliminado is null)
+group by
 	p.per_identificacion,
-	p.per_reg_fecha desc nulls last,
-	p.per_id desc
+	b.bol_id,
+	b.bol_exten_agricola_recibida,
+	b.bol_exten_agricola_institu,
+	b.bol_nombre_asociacion_coop
 limit 5</sql>
     <limit>0</limit>
     <lookup/>
@@ -730,20 +732,20 @@ limit 5</sql>
     <connection>bdc2</connection>
     <sql>select
 	distinct on
-	(coalesce(rp.cedula_dat, hiar.per_identificacion))
-	coalesce(rp.cedula_dat, hiar.per_identificacion) as ext_numero_cedula,
+	(h.per_identificacion)
+	h.per_identificacion as ext_numero_cedula,
 	null as ext_servicio_recibido,
 	null as ext_institucion,
 	null::timestamp as ext_fecha_inicio,
 	nullif(trim(hiar.nombre_asociacion_normalizado), '') as ext_asociacion_nombre,
 	'INFOCAMPO' as ext_fuente
 from
-	sc_infocampo.raw_productores rp
-full outer join sc_infocampo_asociacion.hom_infocampo_asociacion_renagro hiar
-	on rp.cedula_dat = hiar.per_identificacion
+	sc_infocampo.hom_infocampo_productor_renagro h
+left join sc_infocampo_asociacion.hom_infocampo_asociacion_renagro hiar
+	on hiar.per_identificacion = h.per_identificacion
 order by
-	coalesce(rp.cedula_dat, hiar.per_identificacion),
-	rp.fecha_carga_raw desc nulls last
+	h.per_identificacion,
+	nullif(trim(hiar.nombre_asociacion_normalizado), '') asc nulls last
 limit 5</sql>
     <limit>0</limit>
     <lookup/>
@@ -987,8 +989,8 @@ limit 5</sql>
     <connection>bdc2</connection>
     <sql>select
 	distinct on
-	(coalesce(hac.per_identificacion, haa.per_identificacion))
-	coalesce(hac.per_identificacion, haa.per_identificacion) as ext_numero_cedula,
+	(hac.per_identificacion)
+	hac.per_identificacion as ext_numero_cedula,
 	null as ext_servicio_recibido,
 	null as ext_institucion,
 	null::timestamp as ext_fecha_inicio,
@@ -996,10 +998,11 @@ limit 5</sql>
 	'AFC' as ext_fuente
 from
 	sc_afc_productor_contacto.hom_afc_productor_contacto_renagro hac
-full outer join sc_afc_productor_asociacion.hom_afc_asociacion_renagro haa
-	on hac.per_identificacion = haa.per_identificacion
+left join sc_afc_productor_asociacion.hom_afc_asociacion_renagro haa
+	on haa.per_identificacion = hac.per_identificacion
 order by
-	coalesce(hac.per_identificacion, haa.per_identificacion),
+	hac.per_identificacion,
+	nullif(trim(haa.bol_nombre_asociacion_coop), '') asc nulls last,
 	hac.inpr_reg_fecha desc nulls last
 limit 5</sql>
     <limit>0</limit>
