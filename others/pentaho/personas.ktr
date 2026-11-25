@@ -452,6 +452,82 @@
     </hop>
   </order>
   <step>
+    <name>Table output - personas</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sc_interoperabilidad_dev-root</connection>
+    <schema>sc_interoperabilidad</schema>
+    <table>personas</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>per_numero_cedula</column_name>
+        <stream_name>per_numero_cedula</stream_name>
+      </field>
+      <field>
+        <column_name>per_tipo_persona</column_name>
+        <stream_name>per_tipo_persona</stream_name>
+      </field>
+      <field>
+        <column_name>per_fecha_actualizacion</column_name>
+        <stream_name>per_fecha_actualizacion</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_fijo</column_name>
+        <stream_name>per_telefono_fijo</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular</column_name>
+        <stream_name>per_telefono_celular</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular_info</column_name>
+        <stream_name>per_telefono_celular_info</stream_name>
+      </field>
+      <field>
+        <column_name>per_correo_electronico</column_name>
+        <stream_name>per_correo_electronico</stream_name>
+      </field>
+      <field>
+        <column_name>per_fuente</column_name>
+        <stream_name>per_fuente</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>sc_afc_productor_contacto-persona</name>
     <type>TableInput</type>
     <description/>
@@ -959,7 +1035,7 @@ order by
 	p.per_identificacion,
 	p.per_reg_fecha desc nulls last,
 	p.per_id desc
-limit 5;</sql>
+limit 1000;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1163,82 +1239,6 @@ limit 5;</sql>
     <GUI>
       <xloc>144</xloc>
       <yloc>64</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output - personas</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <schema>sc_interoperabilidad</schema>
-    <table>personas</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>per_numero_cedula</column_name>
-        <stream_name>per_numero_cedula</stream_name>
-      </field>
-      <field>
-        <column_name>per_tipo_persona</column_name>
-        <stream_name>per_tipo_persona</stream_name>
-      </field>
-      <field>
-        <column_name>per_fecha_actualizacion</column_name>
-        <stream_name>per_fecha_actualizacion</stream_name>
-      </field>
-      <field>
-        <column_name>per_telefono_fijo</column_name>
-        <stream_name>per_telefono_fijo</stream_name>
-      </field>
-      <field>
-        <column_name>per_telefono_celular</column_name>
-        <stream_name>per_telefono_celular</stream_name>
-      </field>
-      <field>
-        <column_name>per_telefono_celular_info</column_name>
-        <stream_name>per_telefono_celular_info</stream_name>
-      </field>
-      <field>
-        <column_name>per_correo_electronico</column_name>
-        <stream_name>per_correo_electronico</stream_name>
-      </field>
-      <field>
-        <column_name>per_fuente</column_name>
-        <stream_name>per_fuente</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>592</xloc>
-      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
