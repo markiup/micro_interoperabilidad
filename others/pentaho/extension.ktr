@@ -731,21 +731,30 @@ limit 5</sql>
     </partitioning>
     <connection>bdc2</connection>
     <sql>select
-	distinct on
-	(h.per_identificacion)
 	h.per_identificacion as ext_numero_cedula,
-	null as ext_servicio_recibido,
-	null as ext_institucion,
-	null::timestamp as ext_fecha_inicio,
-	nullif(trim(hiar.nombre_asociacion_normalizado), '') as ext_asociacion_nombre,
+	max(
+		case
+			when hier.bol_is_asistencia_tecnica is true then 'Asistencia técnica'
+			else null
+		end
+	) as ext_servicio_recibido,
+	null::varchar(150) as ext_institucion,
+	min(hier.fecha_primera_visita)::timestamp as ext_fecha_inicio,
+	max(
+		coalesce(
+			nullif(trim(hiar.nombre_asociacion_normalizado), ''),
+			nullif(trim(hiar.bol_nombre_asociacion_coop), '')
+		)
+	) as ext_asociacion_nombre,
 	'INFOCAMPO' as ext_fuente
 from
 	sc_infocampo.hom_infocampo_productor_renagro h
+left join sc_infocampo_extension.hom_infocampo_extension_renagro hier
+	on hier.per_identificacion = h.per_identificacion
 left join sc_infocampo_asociacion.hom_infocampo_asociacion_renagro hiar
 	on hiar.per_identificacion = h.per_identificacion
-order by
-	h.per_identificacion,
-	nullif(trim(hiar.nombre_asociacion_normalizado), '') asc nulls last
+group by
+	h.per_identificacion
 limit 5</sql>
     <limit>0</limit>
     <lookup/>
@@ -804,7 +813,7 @@ limit 5</sql>
         <type>String</type>
         <storagetype>normal</storagetype>
         <name>ext_institucion</name>
-        <length>2147483647</length>
+        <length>150</length>
         <precision>-1</precision>
         <origin>sc_infocampo-extension</origin>
         <comments>ext_institucion</comments>
@@ -988,22 +997,31 @@ limit 5</sql>
     </partitioning>
     <connection>bdc2</connection>
     <sql>select
-	distinct on
-	(hac.per_identificacion)
 	hac.per_identificacion as ext_numero_cedula,
-	null as ext_servicio_recibido,
-	null as ext_institucion,
-	null::timestamp as ext_fecha_inicio,
-	nullif(trim(haa.bol_nombre_asociacion_coop), '') as ext_asociacion_nombre,
+	max(
+		coalesce(
+			nullif(trim(has.extension_servicio), ''),
+			case
+				when has.extension_recibio is true then 'Asistencia técnica'
+				else null
+			end
+		)
+	) as ext_servicio_recibido,
+	null::varchar(150) as ext_institucion,
+	min(has.vepr_reg_fecha)::timestamp as ext_fecha_inicio,
+	max(nullif(trim(haa.bol_nombre_asociacion_coop), '')) as ext_asociacion_nombre,
 	'AFC' as ext_fuente
 from
 	sc_afc_productor_contacto.hom_afc_productor_contacto_renagro hac
+left join sc_afc_productor_servicios.hom_afc_servicios_renagro has
+	on has.per_identificacion = hac.per_identificacion
 left join sc_afc_productor_asociacion.hom_afc_asociacion_renagro haa
 	on haa.per_identificacion = hac.per_identificacion
-order by
-	hac.per_identificacion,
-	nullif(trim(haa.bol_nombre_asociacion_coop), '') asc nulls last,
-	hac.inpr_reg_fecha desc nulls last
+where
+	has.per_identificacion is not null
+	or haa.per_identificacion is not null
+group by
+	hac.per_identificacion
 limit 5</sql>
     <limit>0</limit>
     <lookup/>
@@ -1062,7 +1080,7 @@ limit 5</sql>
         <type>String</type>
         <storagetype>normal</storagetype>
         <name>ext_institucion</name>
-        <length>2147483647</length>
+        <length>150</length>
         <precision>-1</precision>
         <origin>sc_afc-extension</origin>
         <comments>ext_institucion</comments>
