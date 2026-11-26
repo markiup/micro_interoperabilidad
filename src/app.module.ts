@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CultivoEntity } from './micro/cultivo/entities/cultivo.entity';
 import { ExtensionEntity } from './micro/extension_pec/entities/extension.entity';
-import { PecuariaEntity } from './micro/pecuario/entities/pecuario.entity';
+import { PecuarioEntity } from './micro/pecuario/entities/pecuario.entity';
 import { PersonaEntity } from './micro/persona/entities/persona.entity';
 import { PersonaModule } from './micro/persona/persona.module';
 import { Productor } from './micro/productor/entities/productor.entity';
@@ -16,6 +16,7 @@ import { HealthModule } from './system/health/health.module';
 import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
 import { HttpExceptionFilter } from './utils/http-exception.filter';
 import { ExtensionModule } from './micro/extension_pec/extension.module';
+import { PecuarioModule } from './micro/pecuario/pecuario.module';
 
 @Module({
   imports: [
@@ -49,7 +50,7 @@ import { ExtensionModule } from './micro/extension_pec/extension.module';
       entities: [
         CultivoEntity,
         ExtensionEntity,
-        PecuariaEntity,
+        PecuarioEntity,
         PersonaEntity,
         UbicacionEntity,
       ],
@@ -60,6 +61,7 @@ import { ExtensionModule } from './micro/extension_pec/extension.module';
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
     }),
+    PecuarioModule,
     ExtensionModule,
     ProductorModule,
     CultivoModule,

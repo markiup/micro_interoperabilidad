@@ -1,48 +1,48 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ schema: 'sc_interoperabilidad', name: 'pecuarias' })
-export class PecuariaEntity extends BaseEntity {
+export class PecuarioEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'pec_id' })
-  id: number;
+  pec_id: number;
 
   @Column({ name: 'pec_bovinos', default: false, nullable: true })
-  bovinos: boolean;
+  pec_bovinos: boolean;
 
   @Column({ name: 'pec_porcinos', default: false, nullable: true })
-  porcinos: boolean;
+  pec_porcinos: boolean;
 
   @Column({ name: 'pec_aves', default: false, nullable: true })
-  aves: boolean;
+  pec_aves: boolean;
 
   @Column({ name: 'pec_otras_especies', default: false, nullable: true })
-  otrasEspecies: boolean;
+  pec_otras_especies: boolean;
 
   @Column({ name: 'pec_fuente' })
-  fuente: string;
+  pec_fuente: string;
 
   @Column({ name: 'pec_numero_cedula', nullable: true })
-  numeroCedula: string;
+  pec_numero_cedula: string;
 
   // Auditoría
   @Column({ name: 'pec_reg_usu', nullable: false, default: 1 })
-  regUsuario: number;
+  pec_reg_usu: number;
 
   @Column({ name: 'pec_act_fecha', type: 'timestamp', nullable: true })
-  actFecha: Date = new Date();
+  pec_act_fecha: Date = new Date();
 
   @Column({ name: 'pec_act_usu', nullable: true })
-  actUsuario: number;
+  pec_act_usu: number;
 
   @Column({
     name: 'pec_reg_fecha',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  regFecha: Date = new Date();
+  pec_reg_fecha: Date = new Date();
 
   @Column({ name: 'pec_estado', default: 11 })
-  estado: number;
+  pec_estado: number;
 
   @Column({ name: 'pec_eliminado', default: false })
-  eliminado: boolean;
+  pec_eliminado: boolean;
 }

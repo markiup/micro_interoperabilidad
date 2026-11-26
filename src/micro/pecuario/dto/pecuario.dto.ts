@@ -5,77 +5,77 @@ export class PecuariaDto {
     title: 'pec_id',
     description: 'Identificador secuencial de la tabla',
   })
-  id: number;
+  pec_id: number;
 
   @ApiProperty({
     title: 'pec_bovinos',
     description: 'Indica presencia de bovinos',
   })
-  bovinos: boolean;
+  pec_bovinos: boolean;
 
   @ApiProperty({
     title: 'pec_porcinos',
     description: 'Indica presencia de porcinos',
   })
-  porcinos: boolean;
+  pec_porcinos: boolean;
 
   @ApiProperty({
     title: 'pec_aves',
     description: 'Indica presencia de aves',
   })
-  aves: boolean;
+  pec_aves: boolean;
 
   @ApiProperty({
     title: 'pec_otras_especies',
     description: 'Indica presencia de otras especies pecuarias',
   })
-  otrasEspecies: boolean;
+  pec_otras_especies: boolean;
 
   @ApiProperty({
     title: 'pec_fuente',
     description: 'Fuente de origen del registro pecuario',
   })
-  fuente: string;
+  pec_fuente: string;
 
   @ApiProperty({
     title: 'pec_numero_cedula',
     description: 'Número de cédula del productor',
   })
-  numeroCedula: string;
+  pec_numero_cedula: string;
 
   @ApiProperty({
     title: 'pec_reg_usu',
     description: '',
   })
-  regUsuario: number;
+  pec_reg_usu: number;
 
   @ApiProperty({
     title: 'pec_reg_fecha',
     description: '',
   })
-  regFecha: Date = new Date();
+  pec_reg_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'pec_act_usu',
     description: '',
   })
-  actUsuario: number;
+  pec_act_usu: number;
 
   @ApiProperty({
     title: 'pec_act_fecha',
     description: '',
   })
-  actFecha: Date = new Date();
+  pec_act_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'pec_estado',
     description: '',
   })
-  estado: number;
+  pec_estado: number;
 
   @ApiProperty({
     title: 'pec_eliminado',
     description: '',
   })
-  eliminado: boolean;
+  pec_eliminado: boolean;
 }
