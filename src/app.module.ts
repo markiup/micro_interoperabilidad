@@ -10,6 +10,7 @@ import { PersonaEntity } from './micro/persona/entities/persona.entity';
 import { PersonaModule } from './micro/persona/persona.module';
 import { Productor } from './micro/productor/entities/productor.entity';
 import { ProductorModule } from './micro/productor/productor.module';
+import { CultivoModule } from './micro/cultivo/cultivo.module';
 import { UbicacionEntity } from './micro/ubicacion/entities/ubicacion.entity';
 import { HealthModule } from './system/health/health.module';
 import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
@@ -58,8 +59,8 @@ import { HttpExceptionFilter } from './utils/http-exception.filter';
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
     }),
-
     ProductorModule,
+    CultivoModule,
     HealthModule,
     PersonaModule,
   ],

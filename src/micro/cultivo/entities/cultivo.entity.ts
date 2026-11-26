@@ -3,10 +3,10 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ schema: 'sc_interoperabilidad', name: 'cultivos' })
 export class CultivoEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'cul_id' })
-  id: number;
+  cul_id: number;
 
   @Column({ name: 'cul_nombre' })
-  nombre: string;
+  cul_nombre: string;
 
   @Column({
     name: 'cul_superficie',
@@ -16,67 +16,67 @@ export class CultivoEntity extends BaseEntity {
     default: 0,
     nullable: true,
   })
-  superficie: number;
+  cul_superficie: number;
 
   @Column({ name: 'cul_unidad', nullable: true })
-  unidad: string;
+  cul_unidad: string;
 
   @Column({ name: 'cul_asociacion', nullable: true })
-  asociacion: string;
+  cul_asociacion: string;
 
   @Column({ name: 'cul_forma', nullable: true })
-  forma: string;
+  cul_forma: string;
 
   @Column({ name: 'cul_ferti_orga', default: false, nullable: true })
-  fertiOrga: boolean;
+  cul_ferti_orga: boolean;
 
   @Column({ name: 'cul_ferti_quim', default: false, nullable: true })
-  fertiQuim: boolean;
+  cul_ferti_quim: boolean;
 
   @Column({ name: 'cul_plag_orga', default: false, nullable: true })
-  plagOrga: boolean;
+  cul_plag_orga: boolean;
 
   @Column({ name: 'cul_plag_quim', default: false, nullable: true })
-  plagQuim: boolean;
+  cul_plag_quim: boolean;
 
   @Column({ name: 'cul_fuente' })
-  fuente: string;
+  cul_fuente: string;
 
   @Column({ name: 'cul_rie_fuente_agua', nullable: true })
-  rieFuenteAgua: string;
+  cul_rie_fuente_agua: string;
 
   @Column({ name: 'cul_rie_sistema', nullable: true })
-  rieSistema: string;
+  cul_rie_sistema: string;
 
   @Column({ name: 'cul_numero_cedula', nullable: true })
-  numeroCedula: string;
+  cul_numero_cedula: string;
 
   @Column({ name: 'cul_riego', nullable: true })
-  riego: string;
+  cul_riego: string;
 
   @Column({ name: 'cul_rie_acceso', nullable: true })
-  rieAcceso: boolean;
+  cul_rie_acceso: boolean;
 
   // Auditoría
   @Column({ name: 'cul_reg_usu', nullable: false, default: 1 })
-  regUsuario: number;
+  cul_reg_usu: number;
 
   @Column({ name: 'cul_act_fecha', type: 'timestamp', nullable: true })
-  actFecha: Date = new Date();
+  cul_act_fecha: Date = new Date();
 
   @Column({ name: 'cul_act_usu', nullable: true })
-  actUsuario: number;
+  cul_act_usu: number;
 
   @Column({
     name: 'cul_reg_fecha',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  regFecha: Date = new Date();
+  cul_reg_fecha: Date = new Date();
 
   @Column({ name: 'cul_estado', default: 11 })
-  estado: number;
+  cul_estado: number;
 
   @Column({ name: 'cul_eliminado', default: false })
-  eliminado: boolean;
+  cul_eliminado: boolean;
 }

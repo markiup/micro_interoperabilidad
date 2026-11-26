@@ -5,131 +5,131 @@ export class CultivoDto {
     title: 'cul_id',
     description: 'Identificador secuencial de la tabla',
   })
-  id: number;
+  cul_id: number;
 
   @ApiProperty({
     title: 'cul_nombre',
     description: 'Nombre del cultivo',
   })
-  nombre: string;
+  cul_nombre: string;
 
   @ApiProperty({
     title: 'cul_superficie',
     description: 'Superficie del cultivo',
   })
-  superficie: number;
+  cul_superficie: number;
 
   @ApiProperty({
     title: 'cul_unidad',
     description: 'Unidad de medida de la superficie',
   })
-  unidad: string;
+  cul_unidad: string;
 
   @ApiProperty({
     title: 'cul_asociacion',
     description: 'Indica si el cultivo es solo o asociado',
   })
-  asociacion: string;
+  cul_asociacion: string;
 
   @ApiProperty({
     title: 'cul_forma',
     description: 'Forma del cultivo',
   })
-  forma: string;
+  cul_forma: string;
 
   @ApiProperty({
     title: 'cul_ferti_orga',
     description: 'Uso de fertilizante orgánico',
   })
-  fertiOrga: boolean;
+  cul_ferti_orga: boolean;
 
   @ApiProperty({
     title: 'cul_ferti_quim',
     description: 'Uso de fertilizante químico',
   })
-  fertiQuim: boolean;
+  cul_ferti_quim: boolean;
 
   @ApiProperty({
     title: 'cul_plag_orga',
     description: 'Uso de plaguicida orgánico',
   })
-  plagOrga: boolean;
+  cul_plag_orga: boolean;
 
   @ApiProperty({
     title: 'cul_plag_quim',
     description: 'Uso de plaguicida químico',
   })
-  plagQuim: boolean;
+  cul_plag_quim: boolean;
 
   @ApiProperty({
     title: 'cul_fuente',
     description: 'Fuente de origen del registro del cultivo',
   })
-  fuente: string;
+  cul_fuente: string;
 
   @ApiProperty({
     title: 'cul_rie_fuente_agua',
     description: 'Fuente de agua para riego',
   })
-  rieFuenteAgua: string;
+  cul_rie_fuente_agua: string;
 
   @ApiProperty({
     title: 'cul_rie_sistema',
     description: 'Sistema de riego utilizado',
   })
-  rieSistema: string;
+  cul_rie_sistema: string;
 
   @ApiProperty({
     title: 'cul_numero_cedula',
     description: 'Número de cédula del productor',
   })
-  numeroCedula: string;
+  cul_numero_cedula: string;
 
   @ApiProperty({
     title: 'cul_riego',
     description: 'Tipo o detalle de riego',
   })
-  riego: string;
+  cul_riego: string;
 
   @ApiProperty({
     title: 'cul_rie_acceso',
     description: 'Indica si tiene acceso a riego',
   })
-  rieAcceso: boolean;
+  cul_rie_acceso: boolean;
 
   @ApiProperty({
     title: 'cul_reg_usu',
     description: '',
   })
-  regUsuario: number;
+  cul_reg_usu: number;
 
   @ApiProperty({
     title: 'cul_reg_fecha',
     description: '',
   })
-  regFecha: Date = new Date();
+  cul_reg_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'cul_act_usu',
     description: '',
   })
-  actUsuario: number;
+  cul_act_usu: number;
 
   @ApiProperty({
     title: 'cul_act_fecha',
     description: '',
   })
-  actFecha: Date = new Date();
+  cul_act_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'cul_estado',
     description: '',
   })
-  estado: number;
+  cul_estado: number;
 
   @ApiProperty({
     title: 'cul_eliminado',
     description: '',
   })
-  eliminado: boolean;
+  cul_eliminado: boolean;
 }
