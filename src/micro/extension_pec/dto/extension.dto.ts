@@ -5,77 +5,77 @@ export class ExtensionDto {
     title: 'ext_id',
     description: 'Identificador secuencial de la tabla',
   })
-  id: number;
+  ext_id: number;
 
   @ApiProperty({
     title: 'ext_servicio_recibido',
     description: 'Servicio de extensión agrícola recibido',
   })
-  servicioRecibido: string;
+  ext_servicio_recibido: string;
 
   @ApiProperty({
     title: 'ext_institucion',
     description: 'Institución que impartió el servicio de extensión',
   })
-  institucion: string;
+  ext_institucion: string;
 
   @ApiProperty({
     title: 'ext_fecha_inicio',
     description: 'Fecha de inicio del servicio de extensión',
   })
-  fechaInicio: Date;
+  ext_fecha_inicio: Date;
 
   @ApiProperty({
     title: 'ext_fuente',
     description: 'Fuente de origen del registro',
   })
-  fuente: string;
+  ext_fuente: string;
 
   @ApiProperty({
     title: 'ext_numero_cedula',
     description: 'Número de cédula del productor',
   })
-  numeroCedula: string;
+  ext_numero_cedula: string;
 
   @ApiProperty({
     title: 'ext_asociacion_nombre',
     description: 'Nombre de la asociación o cooperativa a la que pertenece',
   })
-  asociacionNombre: string;
+  ext_asociacion_nombre: string;
 
   @ApiProperty({
     title: 'ext_reg_usu',
     description: '',
   })
-  regUsuario: number;
+  ext_reg_usu: number;
 
   @ApiProperty({
     title: 'ext_reg_fecha',
     description: '',
   })
-  regFecha: Date = new Date();
+  ext_reg_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'ext_act_usu',
     description: '',
   })
-  actUsuario: number;
+  ext_act_usu: number;
 
   @ApiProperty({
     title: 'ext_act_fecha',
     description: '',
   })
-  actFecha: Date = new Date();
+  ext_act_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'ext_estado',
     description: '',
   })
-  estado: number;
+  ext_estado: number;
 
   @ApiProperty({
     title: 'ext_eliminado',
     description: '',
   })
-  eliminado: boolean;
+  ext_eliminado: boolean;
 }

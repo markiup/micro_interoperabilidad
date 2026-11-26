@@ -15,6 +15,7 @@ import { UbicacionEntity } from './micro/ubicacion/entities/ubicacion.entity';
 import { HealthModule } from './system/health/health.module';
 import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
 import { HttpExceptionFilter } from './utils/http-exception.filter';
+import { ExtensionModule } from './micro/extension_pec/extension.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { HttpExceptionFilter } from './utils/http-exception.filter';
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
     }),
+    ExtensionModule,
     ProductorModule,
     CultivoModule,
     HealthModule,

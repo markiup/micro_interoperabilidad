@@ -3,46 +3,46 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ schema: 'sc_interoperabilidad', name: 'extensiones' })
 export class ExtensionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'ext_id' })
-  id: number;
+  ext_id: number;
 
   @Column({ name: 'ext_servicio_recibido', nullable: true })
-  servicioRecibido: string;
+  ext_servicio_recibido: string;
 
   @Column({ name: 'ext_institucion', nullable: true })
-  institucion: string;
+  ext_institucion: string;
 
   @Column({ name: 'ext_fecha_inicio', type: 'timestamp', nullable: true })
-  fechaInicio: Date;
+  ext_fecha_inicio: Date;
 
   @Column({ name: 'ext_fuente' })
-  fuente: string;
+  ext_fuente: string;
 
   @Column({ name: 'ext_numero_cedula', nullable: true })
-  numeroCedula: string;
+  ext_numero_cedula: string;
 
   @Column({ name: 'ext_asociacion_nombre', nullable: true })
-  asociacionNombre: string;
+  ext_asociacion_nombre: string;
 
   // Auditoría
   @Column({ name: 'ext_reg_usu', nullable: false, default: 1 })
-  regUsuario: number;
+  ext_reg_usu: number;
 
   @Column({ name: 'ext_act_fecha', type: 'timestamp', nullable: true })
-  actFecha: Date = new Date();
+  ext_act_fecha: Date = new Date();
 
   @Column({ name: 'ext_act_usu', nullable: true })
-  actUsuario: number;
+  ext_act_usu: number;
 
   @Column({
     name: 'ext_reg_fecha',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  regFecha: Date = new Date();
+  ext_reg_fecha: Date = new Date();
 
   @Column({ name: 'ext_estado', default: 11 })
-  estado: number;
+  ext_estado: number;
 
   @Column({ name: 'ext_eliminado', default: false })
-  eliminado: boolean;
+  ext_eliminado: boolean;
 }
