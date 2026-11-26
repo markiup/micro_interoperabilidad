@@ -462,16 +462,16 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>mp_renagro</connection>
+    <connection>bdc2</connection>
     <sql>SELECT DISTINCT ON (p.per_identificacion, b.bol_id)
     p.per_identificacion::varchar(20) AS per_numero_cedula,
     b.bol_id::int4 AS ubi_bol_id,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_provincia, 'PROV'), b.bol_provincia)::varchar(100) AS ubi_provincia_registro,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_canton, 'CANT'), b.bol_canton)::varchar(100) AS ubi_canton_registro,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_parroquia, 'PARR'), b.bol_parroquia)::varchar(100) AS ubi_parroquia_registro,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_provincia_vive, 'PROV'), b.bol_provincia_vive)::varchar(100) AS ubi_provincia_residencia,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_canton_vive, 'CANT'), b.bol_canton_vive)::varchar(100) AS ubi_canton_residencia,
-    COALESCE(sc_renagro_mag.catalogo_descripcion(b.bol_parroquia_vive, 'PARR'), b.bol_parroquia_vive)::varchar(100) AS ubi_parroquia_residencia,
+    COALESCE(prov_reg.cat_descripcion, b.bol_provincia)::varchar(100) AS ubi_provincia_registro,
+    COALESCE(cant_reg.cat_descripcion, b.bol_canton)::varchar(100) AS ubi_canton_registro,
+    COALESCE(parr_reg.cat_descripcion, b.bol_parroquia)::varchar(100) AS ubi_parroquia_registro,
+    COALESCE(prov_viv.cat_descripcion, b.bol_provincia_vive)::varchar(100) AS ubi_provincia_residencia,
+    COALESCE(cant_viv.cat_descripcion, b.bol_canton_vive)::varchar(100) AS ubi_canton_residencia,
+    COALESCE(parr_viv.cat_descripcion, b.bol_parroquia_vive)::varchar(100) AS ubi_parroquia_residencia,
     CASE 
         WHEN b.bol_distancia_al_domicilio BETWEEN -99999999.99 AND 99999999.99 
         THEN b.bol_distancia_al_domicilio::numeric(10,2)
@@ -480,6 +480,18 @@
 FROM sc_renagro_mag.personas p
 INNER JOIN sc_renagro_mag.boletas b 
     ON p.per_id = b.per_id
+LEFT JOIN sc_renagro_mag.catalogo prov_reg 
+    ON prov_reg.cat_grupo = 'PROV' AND prov_reg.cat_codigo = TRIM(b.bol_provincia)
+LEFT JOIN sc_renagro_mag.catalogo cant_reg 
+    ON cant_reg.cat_grupo = 'CANT' AND cant_reg.cat_codigo = TRIM(b.bol_canton)
+LEFT JOIN sc_renagro_mag.catalogo parr_reg 
+    ON parr_reg.cat_grupo = 'PARR' AND parr_reg.cat_codigo = TRIM(b.bol_parroquia)
+LEFT JOIN sc_renagro_mag.catalogo prov_viv 
+    ON prov_viv.cat_grupo = 'PROV' AND prov_viv.cat_codigo = TRIM(b.bol_provincia_vive)
+LEFT JOIN sc_renagro_mag.catalogo cant_viv 
+    ON cant_viv.cat_grupo = 'CANT' AND cant_viv.cat_codigo = TRIM(b.bol_canton_vive)
+LEFT JOIN sc_renagro_mag.catalogo parr_viv 
+    ON parr_viv.cat_grupo = 'PARR' AND parr_viv.cat_codigo = TRIM(b.bol_parroquia_vive)
 WHERE (b.bol_eliminado IS NOT TRUE OR b.bol_eliminado IS NULL)
 ORDER BY 
     p.per_identificacion, 

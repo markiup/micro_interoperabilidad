@@ -462,34 +462,42 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>mp_renagro</connection>
-    <sql>select
-	p.per_identificacion as ext_numero_cedula,
-	coalesce(
-		sc_renagro_mag.catalogo_descripcion(b.bol_exten_agricola_recibida, '444'),
+    <connection>bdc2</connection>
+    <sql>SELECT
+	p.per_identificacion AS ext_numero_cedula,
+	COALESCE(
+		cat_serv.cat_descripcion,
 		b.bol_exten_agricola_recibida
-	) as ext_servicio_recibido,
-	coalesce(
-		sc_renagro_mag.catalogo_descripcion(b.bol_exten_agricola_institu, '190'),
+	) AS ext_servicio_recibido,
+	COALESCE(
+		cat_inst.cat_descripcion,
 		b.bol_exten_agricola_institu
-	) as ext_institucion,
-	null::timestamp as ext_fecha_inicio,
-	nullif(trim(b.bol_nombre_asociacion_coop), '') as ext_asociacion_nombre,
-	'RENAGRO' as ext_fuente
-from
+	) AS ext_institucion,
+	NULL::timestamp AS ext_fecha_inicio,
+	NULLIF(TRIM(b.bol_nombre_asociacion_coop), '') AS ext_asociacion_nombre,
+	'RENAGRO' AS ext_fuente
+FROM
 	sc_renagro_mag.personas p
-inner join sc_renagro_mag.boletas b on
-	b.per_id = p.per_id
-where
-	(b.bol_eliminado is not true
-		or b.bol_eliminado is null)
-group by
+INNER JOIN sc_renagro_mag.boletas b 
+	ON b.per_id = p.per_id
+LEFT JOIN sc_renagro_mag.catalogo cat_serv 
+	ON cat_serv.cat_grupo = '444' 
+	AND cat_serv.cat_codigo = TRIM(b.bol_exten_agricola_recibida)
+LEFT JOIN sc_renagro_mag.catalogo cat_inst 
+	ON cat_inst.cat_grupo = '190' 
+	AND cat_inst.cat_codigo = TRIM(b.bol_exten_agricola_institu)
+WHERE
+	(b.bol_eliminado IS NOT TRUE OR b.bol_eliminado IS NULL)
+AND TRIM(p.per_identificacion) = '0800510687'
+GROUP BY
 	p.per_identificacion,
 	b.bol_id,
 	b.bol_exten_agricola_recibida,
+	cat_serv.cat_descripcion,
 	b.bol_exten_agricola_institu,
+	cat_inst.cat_descripcion,
 	b.bol_nombre_asociacion_coop
-limit 5</sql>
+LIMIT 5</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
