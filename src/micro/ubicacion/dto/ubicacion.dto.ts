@@ -5,102 +5,102 @@ export class UbicacionDto {
     title: 'ubi_id',
     description: 'Identificador secuencial de la tabla',
   })
-  id: number;
+  ubi_id: number;
 
   @ApiProperty({
     title: 'ubi_bol_id',
     description:
       'Identificador de la boleta o terreno asociado al productor en la fuente',
   })
-  bolId: number;
+  ubi_bol_id: number;
 
   @ApiProperty({
     title: 'ubi_provincia_registro',
     description: 'Provincia de registro del terreno o boleta',
   })
-  provinciaRegistro: string;
+  ubi_provincia_registro: string;
 
   @ApiProperty({
     title: 'ubi_canton_registro',
     description: 'Cantón de registro del terreno o boleta',
   })
-  cantonRegistro: string;
+  ubi_canton_registro: string;
 
   @ApiProperty({
     title: 'ubi_parroquia_registro',
     description: 'Parroquia de registro del terreno o boleta',
   })
-  parroquiaRegistro: string;
+  ubi_parroquia_registro: string;
 
   @ApiProperty({
     title: 'ubi_provincia_residencia',
     description: 'Provincia de residencia del productor',
   })
-  provinciaResidencia: string;
+  ubi_provincia_residencia: string;
 
   @ApiProperty({
     title: 'ubi_canton_residencia',
     description: 'Cantón de residencia del productor',
   })
-  cantonResidencia: string;
+  ubi_canton_residencia: string;
 
   @ApiProperty({
     title: 'ubi_parroquia_residencia',
     description: 'Parroquia de residencia del productor',
   })
-  parroquiaResidencia: string;
+  ubi_parroquia_residencia: string;
 
   @ApiProperty({
     title: 'ubi_distancia_domicilio',
     description: 'Distancia al domicilio',
   })
-  distanciaDomicilio: number;
+  ubi_distancia_domicilio: number;
 
   @ApiProperty({
     title: 'ubi_fuente',
     description: 'Fuente de origen del registro de ubicación',
   })
-  fuente: string;
+  ubi_fuente: string;
 
   @ApiProperty({
     title: 'ubi_numero_cedula',
     description: 'Número de cédula del productor',
   })
-  numeroCedula: string;
+  ubi_numero_cedula: string;
 
   @ApiProperty({
     title: 'ubi_reg_usu',
     description: '',
   })
-  regUsuario: number;
+  ubi_reg_usu: number;
 
   @ApiProperty({
     title: 'ubi_reg_fecha',
     description: '',
   })
-  regFecha: Date = new Date();
+  ubi_reg_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'ubi_act_usu',
     description: '',
   })
-  actUsuario: number;
+  ubi_act_usu: number;
 
   @ApiProperty({
     title: 'ubi_act_fecha',
     description: '',
   })
-  actFecha: Date = new Date();
+  ubi_act_fecha: Date = new Date();
 
   @ApiProperty({
     title: 'ubi_estado',
     description: '',
   })
-  estado: number;
+  ubi_estado: number;
 
   @ApiProperty({
     title: 'ubi_eliminado',
     description: '',
   })
-  eliminado: boolean;
+  ubi_eliminado: boolean;
 }

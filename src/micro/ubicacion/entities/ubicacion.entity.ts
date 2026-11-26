@@ -3,28 +3,28 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ schema: 'sc_interoperabilidad', name: 'ubicaciones' })
 export class UbicacionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'ubi_id' })
-  id: number;
+  ubi_id: number;
 
   @Column({ name: 'ubi_bol_id', nullable: true })
-  bolId: number;
+  ubi_bol_id: number;
 
   @Column({ name: 'ubi_provincia_registro', nullable: true })
-  provinciaRegistro: string;
+  ubi_provincia_registro: string;
 
   @Column({ name: 'ubi_canton_registro', nullable: true })
-  cantonRegistro: string;
+  ubi_canton_registro: string;
 
   @Column({ name: 'ubi_parroquia_registro', nullable: true })
-  parroquiaRegistro: string;
+  ubi_parroquia_registro: string;
 
   @Column({ name: 'ubi_provincia_residencia', nullable: true })
-  provinciaResidencia: string;
+  ubi_provincia_residencia: string;
 
   @Column({ name: 'ubi_canton_residencia', nullable: true })
-  cantonResidencia: string;
+  ubi_canton_residencia: string;
 
   @Column({ name: 'ubi_parroquia_residencia', nullable: true })
-  parroquiaResidencia: string;
+  ubi_parroquia_residencia: string;
 
   @Column({
     name: 'ubi_distancia_domicilio',
@@ -33,34 +33,34 @@ export class UbicacionEntity extends BaseEntity {
     scale: 2,
     nullable: true,
   })
-  distanciaDomicilio: number;
+  ubi_distancia_domicilio: number;
 
   @Column({ name: 'ubi_fuente' })
-  fuente: string;
+  ubi_fuente: string;
 
   @Column({ name: 'ubi_numero_cedula', nullable: true })
-  numeroCedula: string;
+  ubi_numero_cedula: string;
 
   // Auditoría
   @Column({ name: 'ubi_reg_usu', nullable: false, default: 1 })
-  regUsuario: number;
+  ubi_reg_usu: number;
 
   @Column({ name: 'ubi_act_fecha', type: 'timestamp', nullable: true })
-  actFecha: Date = new Date();
+  ubi_act_fecha: Date = new Date();
 
   @Column({ name: 'ubi_act_usu', nullable: true })
-  actUsuario: number;
+  ubi_act_usu: number;
 
   @Column({
     name: 'ubi_reg_fecha',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  regFecha: Date = new Date();
+  ubi_reg_fecha: Date = new Date();
 
   @Column({ name: 'ubi_estado', default: 11 })
-  estado: number;
+  ubi_estado: number;
 
   @Column({ name: 'ubi_eliminado', default: false })
-  eliminado: boolean;
+  ubi_eliminado: boolean;
 }

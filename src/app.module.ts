@@ -17,6 +17,7 @@ import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
 import { HttpExceptionFilter } from './utils/http-exception.filter';
 import { ExtensionModule } from './micro/extension_pec/extension.module';
 import { PecuarioModule } from './micro/pecuario/pecuario.module';
+import { UbicacionModule } from './micro/ubicacion/ubicacion.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { PecuarioModule } from './micro/pecuario/pecuario.module';
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
     }),
+    UbicacionModule,
     PecuarioModule,
     ExtensionModule,
     ProductorModule,
