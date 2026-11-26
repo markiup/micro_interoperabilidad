@@ -14,7 +14,7 @@ export class CultivoController {
 
   @Get(':identificacion')
   @ApiOperation({
-    summary: 'Busca una persona por su número de identificación',
+    summary: 'Busca el cultivo por su número de identificación',
     description:
       'Retorna la información mas reciente del cultivo correspondiente al número de identificación proporcionado por FUENTE, ordenada por fecha de registro descendente',
   })

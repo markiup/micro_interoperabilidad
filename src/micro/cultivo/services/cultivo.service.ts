@@ -16,9 +16,10 @@ export class CultivoService {
   }
 
   /**
-   * Busca una persona por su número de identificación, la mas reciente si hay varias coincidencias por FUENTE.
-   * @param identificacion La identificación de la persona a buscar
-   * @returns Un arreglo con las entidades de la persona encontradas o un arreglo vacío si no existen
+   * Busca los registros de cultivo de un productor por su número de identificación,
+   * retornando el más reciente si existen varias coincidencias por FUENTE.
+   * @param identificacion El número de identificación del productor a buscar
+   * @returns Un arreglo con las entidades de cultivo encontradas o un arreglo vacío si no existen
    */
   async findByIdentificacionQueryNative(
     identificacion: string,
