@@ -442,12 +442,12 @@
     </hop>
     <hop>
       <from>sc_infocampo-personas</from>
-      <to>Table output - personas</to>
+      <to>Table output - personas 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>sc_afc_productor_contacto-persona</from>
-      <to>Table output - personas</to>
+      <to>Table output - personas 3</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -523,7 +523,7 @@
     </remotesteps>
     <GUI>
       <xloc>592</xloc>
-      <yloc>224</yloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -555,7 +555,7 @@ from
 order by
 	hac.per_identificacion,
 	hac.inpr_reg_fecha desc nulls last
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -569,7 +569,7 @@ limit 5</sql>
         <name>per_numero_cedula</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_numero_cedula</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -592,7 +592,7 @@ limit 5</sql>
         <name>per_tipo_persona</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_tipo_persona</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -615,7 +615,7 @@ limit 5</sql>
         <name>per_fecha_actualizacion</name>
         <length>6</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_fecha_actualizacion</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -638,7 +638,7 @@ limit 5</sql>
         <name>per_telefono_fijo</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_telefono_fijo</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -661,7 +661,7 @@ limit 5</sql>
         <name>per_telefono_celular</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_telefono_celular</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -684,7 +684,7 @@ limit 5</sql>
         <name>per_telefono_celular_info</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_telefono_celular_info</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -707,7 +707,7 @@ limit 5</sql>
         <name>per_correo_electronico</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_correo_electronico</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -730,7 +730,7 @@ limit 5</sql>
         <name>per_fuente</name>
         <length>2147483647</length>
         <precision>-1</precision>
-        <origin>Table input</origin>
+        <origin>sc_afc_productor_contacto-persona</origin>
         <comments>per_fuente</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -792,7 +792,7 @@ where
 order by
 	rp.cedula_dat,
 	rp.fecha_carga_raw desc nulls last
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -964,11 +964,11 @@ limit 5</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>fuente</name>
+        <name>per_fuente</name>
         <length>2147483647</length>
         <precision>-1</precision>
         <origin>sc_infocampo-personas</origin>
-        <comments>fuente</comments>
+        <comments>per_fuente</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
         <grouping_symbol>.</grouping_symbol>
@@ -1035,7 +1035,7 @@ order by
 	p.per_identificacion,
 	p.per_reg_fecha desc nulls last,
 	p.per_id desc
-limit 1000;</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1239,6 +1239,158 @@ limit 1000;</sql>
     <GUI>
       <xloc>144</xloc>
       <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output - personas 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sc_interoperabilidad_dev-root</connection>
+    <schema>sc_interoperabilidad</schema>
+    <table>personas</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>per_numero_cedula</column_name>
+        <stream_name>per_numero_cedula</stream_name>
+      </field>
+      <field>
+        <column_name>per_tipo_persona</column_name>
+        <stream_name>per_tipo_persona</stream_name>
+      </field>
+      <field>
+        <column_name>per_fecha_actualizacion</column_name>
+        <stream_name>per_fecha_actualizacion</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_fijo</column_name>
+        <stream_name>per_telefono_fijo</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular</column_name>
+        <stream_name>per_telefono_celular</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular_info</column_name>
+        <stream_name>per_telefono_celular_info</stream_name>
+      </field>
+      <field>
+        <column_name>per_correo_electronico</column_name>
+        <stream_name>per_correo_electronico</stream_name>
+      </field>
+      <field>
+        <column_name>per_fuente</column_name>
+        <stream_name>per_fuente</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output - personas 3</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sc_interoperabilidad_dev-root</connection>
+    <schema>sc_interoperabilidad</schema>
+    <table>personas</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>per_numero_cedula</column_name>
+        <stream_name>per_numero_cedula</stream_name>
+      </field>
+      <field>
+        <column_name>per_tipo_persona</column_name>
+        <stream_name>per_tipo_persona</stream_name>
+      </field>
+      <field>
+        <column_name>per_fecha_actualizacion</column_name>
+        <stream_name>per_fecha_actualizacion</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_fijo</column_name>
+        <stream_name>per_telefono_fijo</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular</column_name>
+        <stream_name>per_telefono_celular</stream_name>
+      </field>
+      <field>
+        <column_name>per_telefono_celular_info</column_name>
+        <stream_name>per_telefono_celular_info</stream_name>
+      </field>
+      <field>
+        <column_name>per_correo_electronico</column_name>
+        <stream_name>per_correo_electronico</stream_name>
+      </field>
+      <field>
+        <column_name>per_fuente</column_name>
+        <stream_name>per_fuente</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

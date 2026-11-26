@@ -684,7 +684,7 @@ where
 	hcp.per_identificacion = hac.per_identificacion
 group by
 	hcp.per_identificacion
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -884,7 +884,7 @@ from
 left join sc_infocampo_pecuario.hom_infocampo_pecuario_renagro hipr
     on
 	hipr.per_identificacion = h.per_identificacion
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1125,7 +1125,7 @@ group by
 	b.bol_id,
 	b.bol_is_pert_asociacion_coop,
 	b.bol_is_acc_riego
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

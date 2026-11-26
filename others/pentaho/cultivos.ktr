@@ -429,7 +429,7 @@
     <created_date>2026/11/25 09:18:16.982</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/11/25 09:18:16.982</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -451,325 +451,6 @@
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>sc_renagro_mag - cultivos</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bdc2</connection>
-    <sql>select
-	p.per_identificacion as cul_numero_cedula,
-	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_nombre_cultivo), c.cul_otro_nombre_cultivo) as cul_nombre,
-	c.cul_superficie_plantada as cul_superficie,
-	c.cul_superficie_plantada_unidad as cul_unidad,
-	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_cultivo_asociado), c.cul_cultivo_asociado) as cul_asociacion,
-	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_forma_cultivar), c.cul_forma_cultivar) as cul_forma,
-	c.cul_is_uso_fert_organico as cul_ferti_orga,
-	c.cul_is_uso_fert_quimico as cul_ferti_quim,
-	c.cul_is_control_plagas_organico as cul_plag_orga,
-	c.cul_is_control_plagas_quimico as cul_plag_quim,
-	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_metodo_de_riego),c.cul_metodo_de_riego) as cul_riego,
-	b.bol_is_acc_riego as cul_rie_acceso,
-	coalesce(sc_renagro_mag.catalogo_descripcion(b.bol_fuente_agua_riego), b.bol_fuente_agua_riego) as cul_rie_fuente_agua,
-	coalesce(sc_renagro_mag.catalogo_descripcion(b.bol_sistema_agua_riego), b.bol_sistema_agua_riego) as cul_rie_sistema,
-	'RENAGRO' as cul_fuente
-from
-	sc_renagro_mag.personas p
-inner join sc_renagro_mag.boletas b on
-	b.per_id = p.per_id
-inner join sc_renagro_mag.terrenos t
-        on
-	t.bol_id = b.bol_id
-	and (t.ter_eliminado is not true
-		or t.ter_eliminado is null)
-inner join sc_renagro_mag.cultivos c
-        on
-	c.ter_id = t.ter_id
-	and (c.cul_eliminado is not true
-		or c.cul_eliminado is null)
-limit 1000
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_numero_cedula</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_numero_cedula</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_nombre</name>
-        <length>2147483647</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_nombre</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>cul_superficie</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_superficie</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_unidad</name>
-        <length>255</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_unidad</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_asociacion</name>
-        <length>2147483647</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_asociacion</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_forma</name>
-        <length>2147483647</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_forma</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Boolean</type>
-        <storagetype>normal</storagetype>
-        <name>cul_ferti_orga</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_ferti_orga</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Boolean</type>
-        <storagetype>normal</storagetype>
-        <name>cul_ferti_quim</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_ferti_quim</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Boolean</type>
-        <storagetype>normal</storagetype>
-        <name>cul_plag_orga</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_plag_orga</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Boolean</type>
-        <storagetype>normal</storagetype>
-        <name>cul_plag_quim</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_plag_quim</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>cul_fuente</name>
-        <length>2147483647</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag - cultivos</origin>
-        <comments>cul_fuente</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>176</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
@@ -875,6 +556,182 @@ limit 1000
     </GUI>
   </step>
   <step>
+    <name>Table output 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sc_interoperabilidad_dev-root</connection>
+    <schema>sc_interoperabilidad</schema>
+    <table>cultivos</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>cul_numero_cedula</column_name>
+        <stream_name>cul_numero_cedula</stream_name>
+      </field>
+      <field>
+        <column_name>cul_nombre</column_name>
+        <stream_name>cul_nombre</stream_name>
+      </field>
+      <field>
+        <column_name>cul_superficie</column_name>
+        <stream_name>cul_superficie</stream_name>
+      </field>
+      <field>
+        <column_name>cul_unidad</column_name>
+        <stream_name>cul_unidad</stream_name>
+      </field>
+      <field>
+        <column_name>cul_asociacion</column_name>
+        <stream_name>cul_asociacion</stream_name>
+      </field>
+      <field>
+        <column_name>cul_forma</column_name>
+        <stream_name>cul_forma</stream_name>
+      </field>
+      <field>
+        <column_name>cul_ferti_orga</column_name>
+        <stream_name>cul_ferti_orga</stream_name>
+      </field>
+      <field>
+        <column_name>cul_ferti_quim</column_name>
+        <stream_name>cul_ferti_quim</stream_name>
+      </field>
+      <field>
+        <column_name>cul_plag_orga</column_name>
+        <stream_name>cul_plag_orga</stream_name>
+      </field>
+      <field>
+        <column_name>cul_plag_quim</column_name>
+        <stream_name>cul_plag_quim</stream_name>
+      </field>
+      <field>
+        <column_name>cul_fuente</column_name>
+        <stream_name>cul_fuente</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 2 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sc_interoperabilidad_dev-root</connection>
+    <schema>sc_interoperabilidad</schema>
+    <table>cultivos</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>cul_numero_cedula</column_name>
+        <stream_name>cul_numero_cedula</stream_name>
+      </field>
+      <field>
+        <column_name>cul_nombre</column_name>
+        <stream_name>cul_nombre</stream_name>
+      </field>
+      <field>
+        <column_name>cul_superficie</column_name>
+        <stream_name>cul_superficie</stream_name>
+      </field>
+      <field>
+        <column_name>cul_unidad</column_name>
+        <stream_name>cul_unidad</stream_name>
+      </field>
+      <field>
+        <column_name>cul_asociacion</column_name>
+        <stream_name>cul_asociacion</stream_name>
+      </field>
+      <field>
+        <column_name>cul_forma</column_name>
+        <stream_name>cul_forma</stream_name>
+      </field>
+      <field>
+        <column_name>cul_ferti_orga</column_name>
+        <stream_name>cul_ferti_orga</stream_name>
+      </field>
+      <field>
+        <column_name>cul_ferti_quim</column_name>
+        <stream_name>cul_ferti_quim</stream_name>
+      </field>
+      <field>
+        <column_name>cul_plag_orga</column_name>
+        <stream_name>cul_plag_orga</stream_name>
+      </field>
+      <field>
+        <column_name>cul_plag_quim</column_name>
+        <stream_name>cul_plag_quim</stream_name>
+      </field>
+      <field>
+        <column_name>cul_fuente</column_name>
+        <stream_name>cul_fuente</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>afc - cultivos</name>
     <type>TableInput</type>
     <description/>
@@ -899,8 +756,8 @@ limit 1000
 	null as cul_plag_quim,
 	'OTRO' as cul_riego,
 	false as cul_rie_acceso,
-	'' as cul_rie_fuente_agua,
-	'' as cul_rie_sistema,
+	null as cul_rie_fuente_agua,
+	null as cul_rie_sistema,
 	'AFC' as cul_fuente
 from
 	sc_afc_productor_agricola.hom_afc_agricola_renagro hca</sql>
@@ -1272,94 +1129,6 @@ from
     </GUI>
   </step>
   <step>
-    <name>Table output 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <schema>sc_interoperabilidad</schema>
-    <table>cultivos</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>cul_numero_cedula</column_name>
-        <stream_name>cul_numero_cedula</stream_name>
-      </field>
-      <field>
-        <column_name>cul_nombre</column_name>
-        <stream_name>cul_nombre</stream_name>
-      </field>
-      <field>
-        <column_name>cul_superficie</column_name>
-        <stream_name>cul_superficie</stream_name>
-      </field>
-      <field>
-        <column_name>cul_unidad</column_name>
-        <stream_name>cul_unidad</stream_name>
-      </field>
-      <field>
-        <column_name>cul_asociacion</column_name>
-        <stream_name>cul_asociacion</stream_name>
-      </field>
-      <field>
-        <column_name>cul_forma</column_name>
-        <stream_name>cul_forma</stream_name>
-      </field>
-      <field>
-        <column_name>cul_ferti_orga</column_name>
-        <stream_name>cul_ferti_orga</stream_name>
-      </field>
-      <field>
-        <column_name>cul_ferti_quim</column_name>
-        <stream_name>cul_ferti_quim</stream_name>
-      </field>
-      <field>
-        <column_name>cul_plag_orga</column_name>
-        <stream_name>cul_plag_orga</stream_name>
-      </field>
-      <field>
-        <column_name>cul_plag_quim</column_name>
-        <stream_name>cul_plag_quim</stream_name>
-      </field>
-      <field>
-        <column_name>cul_fuente</column_name>
-        <stream_name>cul_fuente</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>infocampo - cultivos </name>
     <type>TableInput</type>
     <description/>
@@ -1384,8 +1153,8 @@ from
 	coalesce(hicr.cul_is_control_plagas_quimico, false) as cul_plag_quim,
 	'OTRO' as cul_riego,
 	false as cul_rie_acceso,
-	'' as cul_rie_fuente_agua,
-	'' as cul_rie_sistema,
+	null as cul_rie_fuente_agua,
+	null as cul_rie_sistema,
 	'INFOCAMPO' as cul_fuente
 from
 	sc_infocampo_agricola.hom_infocampo_cultivo_renagro hicr ,
@@ -1761,8 +1530,8 @@ limit 1000</sql>
     </GUI>
   </step>
   <step>
-    <name>Table output 2 2</name>
-    <type>TableOutput</type>
+    <name>sc_renagro_mag - cultivos</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1771,69 +1540,300 @@ limit 1000</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>sc_interoperabilidad_dev-root</connection>
-    <schema>sc_interoperabilidad</schema>
-    <table>cultivos</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>cul_numero_cedula</column_name>
-        <stream_name>cul_numero_cedula</stream_name>
-      </field>
-      <field>
-        <column_name>cul_nombre</column_name>
-        <stream_name>cul_nombre</stream_name>
-      </field>
-      <field>
-        <column_name>cul_superficie</column_name>
-        <stream_name>cul_superficie</stream_name>
-      </field>
-      <field>
-        <column_name>cul_unidad</column_name>
-        <stream_name>cul_unidad</stream_name>
-      </field>
-      <field>
-        <column_name>cul_asociacion</column_name>
-        <stream_name>cul_asociacion</stream_name>
-      </field>
-      <field>
-        <column_name>cul_forma</column_name>
-        <stream_name>cul_forma</stream_name>
-      </field>
-      <field>
-        <column_name>cul_ferti_orga</column_name>
-        <stream_name>cul_ferti_orga</stream_name>
-      </field>
-      <field>
-        <column_name>cul_ferti_quim</column_name>
-        <stream_name>cul_ferti_quim</stream_name>
-      </field>
-      <field>
-        <column_name>cul_plag_orga</column_name>
-        <stream_name>cul_plag_orga</stream_name>
-      </field>
-      <field>
-        <column_name>cul_plag_quim</column_name>
-        <stream_name>cul_plag_quim</stream_name>
-      </field>
-      <field>
-        <column_name>cul_fuente</column_name>
-        <stream_name>cul_fuente</stream_name>
-      </field>
-    </fields>
+    <connection>bdc2</connection>
+    <sql>select
+	p.per_identificacion as cul_numero_cedula,
+	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_nombre_cultivo), c.cul_otro_nombre_cultivo) as cul_nombre,
+	c.cul_superficie_plantada as cul_superficie,
+	c.cul_superficie_plantada_unidad as cul_unidad,
+	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_cultivo_asociado), c.cul_cultivo_asociado) as cul_asociacion,
+	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_forma_cultivar), c.cul_forma_cultivar) as cul_forma,
+	c.cul_is_uso_fert_organico as cul_ferti_orga,
+	c.cul_is_uso_fert_quimico as cul_ferti_quim,
+	c.cul_is_control_plagas_organico as cul_plag_orga,
+	c.cul_is_control_plagas_quimico as cul_plag_quim,
+	coalesce(sc_renagro_mag.catalogo_descripcion(c.cul_metodo_de_riego),c.cul_metodo_de_riego) as cul_riego,
+	b.bol_is_acc_riego as cul_rie_acceso,
+	coalesce(sc_renagro_mag.catalogo_descripcion(b.bol_fuente_agua_riego), b.bol_fuente_agua_riego) as cul_rie_fuente_agua,
+	coalesce(sc_renagro_mag.catalogo_descripcion(b.bol_sistema_agua_riego), b.bol_sistema_agua_riego) as cul_rie_sistema,
+	'RENAGRO' as cul_fuente
+from
+	sc_renagro_mag.personas p
+inner join sc_renagro_mag.boletas b on
+	b.per_id = p.per_id
+inner join sc_renagro_mag.terrenos t
+        on
+	t.bol_id = b.bol_id
+	and (t.ter_eliminado is not true
+		or t.ter_eliminado is null)
+inner join sc_renagro_mag.cultivos c
+        on
+	c.ter_id = t.ter_id
+	and (c.cul_eliminado is not true
+		or c.cul_eliminado is null)
+limit 1000
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_numero_cedula</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_numero_cedula</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_nombre</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_nombre</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>cul_superficie</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_superficie</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_unidad</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_unidad</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_asociacion</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_asociacion</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_forma</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_forma</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Boolean</type>
+        <storagetype>normal</storagetype>
+        <name>cul_ferti_orga</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_ferti_orga</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Boolean</type>
+        <storagetype>normal</storagetype>
+        <name>cul_ferti_quim</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_ferti_quim</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Boolean</type>
+        <storagetype>normal</storagetype>
+        <name>cul_plag_orga</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_plag_orga</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Boolean</type>
+        <storagetype>normal</storagetype>
+        <name>cul_plag_quim</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_plag_quim</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>cul_fuente</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>sc_renagro_mag - cultivos</origin>
+        <comments>cul_fuente</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1843,8 +1843,8 @@ limit 1000</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>320</yloc>
+      <xloc>176</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -429,7 +429,7 @@
     <created_date>2026/11/24 17:57:08.618</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/11/24 17:57:08.618</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -452,305 +452,6 @@
     </hop>
   </order>
   <step>
-    <name>sc_renagro_mag-ubicacion</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>bdc2</connection>
-    <sql>SELECT DISTINCT ON (p.per_identificacion, b.bol_id)
-    p.per_identificacion::varchar(20) AS per_numero_cedula,
-    b.bol_id::int4 AS ubi_bol_id,
-    COALESCE(prov_reg.cat_descripcion, b.bol_provincia)::varchar(100) AS ubi_provincia_registro,
-    COALESCE(cant_reg.cat_descripcion, b.bol_canton)::varchar(100) AS ubi_canton_registro,
-    COALESCE(parr_reg.cat_descripcion, b.bol_parroquia)::varchar(100) AS ubi_parroquia_registro,
-    COALESCE(prov_viv.cat_descripcion, b.bol_provincia_vive)::varchar(100) AS ubi_provincia_residencia,
-    COALESCE(cant_viv.cat_descripcion, b.bol_canton_vive)::varchar(100) AS ubi_canton_residencia,
-    COALESCE(parr_viv.cat_descripcion, b.bol_parroquia_vive)::varchar(100) AS ubi_parroquia_residencia,
-    CASE 
-        WHEN b.bol_distancia_al_domicilio BETWEEN -99999999.99 AND 99999999.99 
-        THEN b.bol_distancia_al_domicilio::numeric(10,2)
-    END AS ubi_distancia_domicilio,
-    'RENAGRO'::varchar(30) AS ubi_fuente
-FROM sc_renagro_mag.personas p
-INNER JOIN sc_renagro_mag.boletas b 
-    ON p.per_id = b.per_id
-LEFT JOIN sc_renagro_mag.catalogo prov_reg 
-    ON prov_reg.cat_grupo = 'PROV' AND prov_reg.cat_codigo = TRIM(b.bol_provincia)
-LEFT JOIN sc_renagro_mag.catalogo cant_reg 
-    ON cant_reg.cat_grupo = 'CANT' AND cant_reg.cat_codigo = TRIM(b.bol_canton)
-LEFT JOIN sc_renagro_mag.catalogo parr_reg 
-    ON parr_reg.cat_grupo = 'PARR' AND parr_reg.cat_codigo = TRIM(b.bol_parroquia)
-LEFT JOIN sc_renagro_mag.catalogo prov_viv 
-    ON prov_viv.cat_grupo = 'PROV' AND prov_viv.cat_codigo = TRIM(b.bol_provincia_vive)
-LEFT JOIN sc_renagro_mag.catalogo cant_viv 
-    ON cant_viv.cat_grupo = 'CANT' AND cant_viv.cat_codigo = TRIM(b.bol_canton_vive)
-LEFT JOIN sc_renagro_mag.catalogo parr_viv 
-    ON parr_viv.cat_grupo = 'PARR' AND parr_viv.cat_codigo = TRIM(b.bol_parroquia_vive)
-WHERE (b.bol_eliminado IS NOT TRUE OR b.bol_eliminado IS NULL)
-ORDER BY 
-    p.per_identificacion, 
-    b.bol_id,
-    p.per_reg_fecha DESC NULLS LAST
-LIMIT 5</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>per_numero_cedula</name>
-        <length>20</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>per_numero_cedula</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_bol_id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_bol_id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_provincia_registro</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_provincia_registro</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_canton_registro</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_canton_registro</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_parroquia_registro</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_parroquia_registro</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_provincia_residencia</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_provincia_residencia</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_canton_residencia</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_canton_residencia</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_parroquia_residencia</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_parroquia_residencia</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>BigNumber</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_distancia_domicilio</name>
-        <length>-1</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_distancia_domicilio</comments>
-        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
-        <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>ubi_fuente</name>
-        <length>30</length>
-        <precision>-1</precision>
-        <origin>sc_renagro_mag-ubicacion</origin>
-        <comments>ubi_fuente</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol>.</grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>es_EC</date_format_locale>
-        <date_format_timezone>America/Guayaquil</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Table output</name>
     <type>TableOutput</type>
     <description/>
@@ -761,7 +462,7 @@ LIMIT 5</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>sc_interoperabilidad_dev</connection>
+    <connection/>
     <schema>sc_interoperabilidad</schema>
     <table>ubicaciones</table>
     <commit>1000</commit>
@@ -835,6 +536,458 @@ LIMIT 5</sql>
     </GUI>
   </step>
   <step>
+    <name>Table output 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection/>
+    <schema>sc_interoperabilidad</schema>
+    <table>ubicaciones</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>ubi_bol_id</column_name>
+        <stream_name>ubi_bol_id</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_provincia_registro</column_name>
+        <stream_name>ubi_provincia_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_canton_registro</column_name>
+        <stream_name>ubi_canton_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_parroquia_registro</column_name>
+        <stream_name>ubi_parroquia_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_provincia_residencia</column_name>
+        <stream_name>ubi_provincia_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_canton_residencia</column_name>
+        <stream_name>ubi_canton_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_parroquia_residencia</column_name>
+        <stream_name>ubi_parroquia_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_distancia_domicilio</column_name>
+        <stream_name>ubi_distancia_domicilio</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_fuente</column_name>
+        <stream_name>ubi_fuente</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_numero_cedula</column_name>
+        <stream_name>per_numero_cedula</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output 3</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection/>
+    <schema>sc_interoperabilidad</schema>
+    <table>ubicaciones</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>ubi_bol_id</column_name>
+        <stream_name>ubi_bol_id</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_provincia_registro</column_name>
+        <stream_name>ubi_provincia_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_canton_registro</column_name>
+        <stream_name>ubi_canton_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_parroquia_registro</column_name>
+        <stream_name>ubi_parroquia_registro</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_provincia_residencia</column_name>
+        <stream_name>ubi_provincia_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_canton_residencia</column_name>
+        <stream_name>ubi_canton_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_parroquia_residencia</column_name>
+        <stream_name>ubi_parroquia_residencia</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_distancia_domicilio</column_name>
+        <stream_name>ubi_distancia_domicilio</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_fuente</column_name>
+        <stream_name>ubi_fuente</stream_name>
+      </field>
+      <field>
+        <column_name>ubi_numero_cedula</column_name>
+        <stream_name>per_numero_cedula</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>sc_afc-ubicacion</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>bdc2</connection>
+    <sql>SELECT DISTINCT ON (hau.per_identificacion, hau.id_inscripcion_afc)
+    hau.per_identificacion::varchar(20) AS per_numero_cedula,
+    hau.id_inscripcion_afc::int4 AS ubi_bol_id,
+    hau.bol_provincia::varchar(100) AS ubi_provincia_registro,
+    hau.bol_canton::varchar(100) AS ubi_canton_registro,
+    hau.bol_parroquia::varchar(100) AS ubi_parroquia_registro,
+    NULL::varchar(100) AS ubi_provincia_residencia,
+    NULL::varchar(100) AS ubi_canton_residencia,
+    NULL::varchar(100) AS ubi_parroquia_residencia,
+    CASE 
+        WHEN hau.bol_distancia_al_domicilio BETWEEN -99999999.99 AND 99999999.99 
+        THEN hau.bol_distancia_al_domicilio::numeric(10,2)
+    END AS ubi_distancia_domicilio,
+    'AFC'::varchar(30) AS ubi_fuente
+FROM sc_afc_productor_ubicacion.hom_afc_ubicacion_renagro hau
+ORDER BY 
+    hau.per_identificacion,
+    hau.id_inscripcion_afc,
+    hau.inpr_reg_fecha DESC NULLS LAST
+LIMIT 100</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>per_numero_cedula</name>
+        <length>20</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>per_numero_cedula</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_bol_id</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_bol_id</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_provincia_registro</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_provincia_registro</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_canton_registro</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_canton_registro</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_parroquia_registro</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_parroquia_registro</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_provincia_residencia</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_provincia_residencia</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_canton_residencia</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_canton_residencia</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_parroquia_residencia</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_parroquia_residencia</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>BigNumber</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_distancia_domicilio</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_distancia_domicilio</comments>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>ubi_fuente</name>
+        <length>30</length>
+        <precision>-1</precision>
+        <origin>sc_afc-ubicacion</origin>
+        <comments>ubi_fuente</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol>.</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_EC</date_format_locale>
+        <date_format_timezone>America/Guayaquil</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>144</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>sc_infocampo-ubicacion</name>
     <type>TableInput</type>
     <description/>
@@ -869,7 +1022,7 @@ order by
 	hipu.per_identificacion,
 	hipu.id_predio_origen,
 	hipu.ter_reg_fecha desc nulls last
-limit 5</sql>
+limit 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1123,91 +1276,7 @@ limit 5</sql>
     </GUI>
   </step>
   <step>
-    <name>Table output 2</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev</connection>
-    <schema>sc_interoperabilidad</schema>
-    <table>ubicaciones</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>ubi_bol_id</column_name>
-        <stream_name>ubi_bol_id</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_provincia_registro</column_name>
-        <stream_name>ubi_provincia_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_canton_registro</column_name>
-        <stream_name>ubi_canton_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_parroquia_registro</column_name>
-        <stream_name>ubi_parroquia_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_provincia_residencia</column_name>
-        <stream_name>ubi_provincia_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_canton_residencia</column_name>
-        <stream_name>ubi_canton_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_parroquia_residencia</column_name>
-        <stream_name>ubi_parroquia_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_distancia_domicilio</column_name>
-        <stream_name>ubi_distancia_domicilio</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_fuente</column_name>
-        <stream_name>ubi_fuente</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_numero_cedula</column_name>
-        <stream_name>per_numero_cedula</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>464</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>sc_afc-ubicacion</name>
+    <name>sc_renagro_mag-ubicacion</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1218,26 +1287,41 @@ limit 5</sql>
       <schema_name/>
     </partitioning>
     <connection>bdc2</connection>
-    <sql>SELECT DISTINCT ON (hau.per_identificacion, hau.id_inscripcion_afc)
-    hau.per_identificacion::varchar(20) AS per_numero_cedula,
-    hau.id_inscripcion_afc::int4 AS ubi_bol_id,
-    hau.bol_provincia::varchar(100) AS ubi_provincia_registro,
-    hau.bol_canton::varchar(100) AS ubi_canton_registro,
-    hau.bol_parroquia::varchar(100) AS ubi_parroquia_registro,
-    NULL::varchar(100) AS ubi_provincia_residencia,
-    NULL::varchar(100) AS ubi_canton_residencia,
-    NULL::varchar(100) AS ubi_parroquia_residencia,
+    <sql>SELECT DISTINCT ON (p.per_identificacion, b.bol_id)
+    p.per_identificacion::varchar(20) AS per_numero_cedula,
+    b.bol_id::int4 AS ubi_bol_id,
+    COALESCE(prov_reg.cat_descripcion, b.bol_provincia)::varchar(100) AS ubi_provincia_registro,
+    COALESCE(cant_reg.cat_descripcion, b.bol_canton)::varchar(100) AS ubi_canton_registro,
+    COALESCE(parr_reg.cat_descripcion, b.bol_parroquia)::varchar(100) AS ubi_parroquia_registro,
+    COALESCE(prov_viv.cat_descripcion, b.bol_provincia_vive)::varchar(100) AS ubi_provincia_residencia,
+    COALESCE(cant_viv.cat_descripcion, b.bol_canton_vive)::varchar(100) AS ubi_canton_residencia,
+    COALESCE(parr_viv.cat_descripcion, b.bol_parroquia_vive)::varchar(100) AS ubi_parroquia_residencia,
     CASE 
-        WHEN hau.bol_distancia_al_domicilio BETWEEN -99999999.99 AND 99999999.99 
-        THEN hau.bol_distancia_al_domicilio::numeric(10,2)
+        WHEN b.bol_distancia_al_domicilio BETWEEN -99999999.99 AND 99999999.99 
+        THEN b.bol_distancia_al_domicilio::numeric(10,2)
     END AS ubi_distancia_domicilio,
-    'AFC'::varchar(30) AS ubi_fuente
-FROM sc_afc_productor_ubicacion.hom_afc_ubicacion_renagro hau
+    'RENAGRO'::varchar(30) AS ubi_fuente
+FROM sc_renagro_mag.personas p
+INNER JOIN sc_renagro_mag.boletas b 
+    ON p.per_id = b.per_id
+LEFT JOIN sc_renagro_mag.catalogo prov_reg 
+    ON prov_reg.cat_grupo = 'PROV' AND prov_reg.cat_codigo = TRIM(b.bol_provincia)
+LEFT JOIN sc_renagro_mag.catalogo cant_reg 
+    ON cant_reg.cat_grupo = 'CANT' AND cant_reg.cat_codigo = TRIM(b.bol_canton)
+LEFT JOIN sc_renagro_mag.catalogo parr_reg 
+    ON parr_reg.cat_grupo = 'PARR' AND parr_reg.cat_codigo = TRIM(b.bol_parroquia)
+LEFT JOIN sc_renagro_mag.catalogo prov_viv 
+    ON prov_viv.cat_grupo = 'PROV' AND prov_viv.cat_codigo = TRIM(b.bol_provincia_vive)
+LEFT JOIN sc_renagro_mag.catalogo cant_viv 
+    ON cant_viv.cat_grupo = 'CANT' AND cant_viv.cat_codigo = TRIM(b.bol_canton_vive)
+LEFT JOIN sc_renagro_mag.catalogo parr_viv 
+    ON parr_viv.cat_grupo = 'PARR' AND parr_viv.cat_codigo = TRIM(b.bol_parroquia_vive)
+WHERE (b.bol_eliminado IS NOT TRUE OR b.bol_eliminado IS NULL)
 ORDER BY 
-    hau.per_identificacion,
-    hau.id_inscripcion_afc,
-    hau.inpr_reg_fecha DESC NULLS LAST
-LIMIT 5</sql>
+    p.per_identificacion, 
+    b.bol_id,
+    p.per_reg_fecha DESC NULLS LAST
+LIMIT 100</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -1251,7 +1335,7 @@ LIMIT 5</sql>
         <name>per_numero_cedula</name>
         <length>20</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>per_numero_cedula</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1274,7 +1358,7 @@ LIMIT 5</sql>
         <name>ubi_bol_id</name>
         <length>9</length>
         <precision>0</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_bol_id</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>,</decimal_symbol>
@@ -1297,7 +1381,7 @@ LIMIT 5</sql>
         <name>ubi_provincia_registro</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_provincia_registro</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1320,7 +1404,7 @@ LIMIT 5</sql>
         <name>ubi_canton_registro</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_canton_registro</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1343,7 +1427,7 @@ LIMIT 5</sql>
         <name>ubi_parroquia_registro</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_parroquia_registro</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1366,7 +1450,7 @@ LIMIT 5</sql>
         <name>ubi_provincia_residencia</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_provincia_residencia</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1389,7 +1473,7 @@ LIMIT 5</sql>
         <name>ubi_canton_residencia</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_canton_residencia</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1412,7 +1496,7 @@ LIMIT 5</sql>
         <name>ubi_parroquia_residencia</name>
         <length>100</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_parroquia_residencia</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1435,7 +1519,7 @@ LIMIT 5</sql>
         <name>ubi_distancia_domicilio</name>
         <length>-1</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_distancia_domicilio</comments>
         <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
@@ -1458,7 +1542,7 @@ LIMIT 5</sql>
         <name>ubi_fuente</name>
         <length>30</length>
         <precision>-1</precision>
-        <origin>sc_afc-ubicacion</origin>
+        <origin>sc_renagro_mag-ubicacion</origin>
         <comments>ubi_fuente</comments>
         <conversion_Mask/>
         <decimal_symbol>,</decimal_symbol>
@@ -1485,92 +1569,8 @@ LIMIT 5</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output 3</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>sc_interoperabilidad_dev</connection>
-    <schema>sc_interoperabilidad</schema>
-    <table>ubicaciones</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>ubi_bol_id</column_name>
-        <stream_name>ubi_bol_id</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_provincia_registro</column_name>
-        <stream_name>ubi_provincia_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_canton_registro</column_name>
-        <stream_name>ubi_canton_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_parroquia_registro</column_name>
-        <stream_name>ubi_parroquia_registro</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_provincia_residencia</column_name>
-        <stream_name>ubi_provincia_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_canton_residencia</column_name>
-        <stream_name>ubi_canton_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_parroquia_residencia</column_name>
-        <stream_name>ubi_parroquia_residencia</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_distancia_domicilio</column_name>
-        <stream_name>ubi_distancia_domicilio</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_fuente</column_name>
-        <stream_name>ubi_fuente</stream_name>
-      </field>
-      <field>
-        <column_name>ubi_numero_cedula</column_name>
-        <stream_name>per_numero_cedula</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>480</xloc>
-      <yloc>272</yloc>
+      <xloc>160</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
