@@ -3,56 +3,56 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ schema: 'sc_interoperabilidad', name: 'personas' })
 export class PersonaEntity extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'per_id' })
-  id: number;
+  per_id: number;
 
   @Column({ name: 'per_numero_cedula' })
-  numeroCedula: string;
+  per_numero_cedula: string;
 
   @Column({ name: 'per_tipo_persona', nullable: true })
-  tipoPersona: string;
+  per_tipo_persona: string;
 
   @Column({
     name: 'per_fecha_actualizacion',
     type: 'timestamp',
     nullable: true,
   })
-  fechaActualizacion: Date;
+  per_fecha_actualizacion: Date;
 
   @Column({ name: 'per_telefono_fijo', nullable: true })
-  telefonoFijo: string;
+  per_telefono_fijo: string;
 
   @Column({ name: 'per_telefono_celular', nullable: true })
-  telefonoCelular: string;
+  per_telefono_celular: string;
 
   @Column({ name: 'per_telefono_celular_info', nullable: true })
-  telefonoCelularInfo: string;
+  per_telefono_celular_info: string;
 
   @Column({ name: 'per_correo_electronico', nullable: true })
-  correoElectronico: string;
+  per_correo_electronico: string;
 
   @Column({ name: 'per_fuente' })
-  fuente: string;
+  per_fuente: string;
 
   // Auditoría
   @Column({ name: 'per_reg_usu', nullable: false, default: 1 })
-  regUsuario: number;
+  per_reg_usu: number;
 
   @Column({ name: 'per_act_fecha', type: 'timestamp', nullable: true })
-  actFecha: Date = new Date();
+  per_act_fecha: Date = new Date();
 
   @Column({ name: 'per_act_usu', nullable: true })
-  actUsuario: number;
+  per_act_usu: number;
 
   @Column({
     name: 'per_reg_fecha',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  regFecha: Date = new Date();
+  per_reg_fecha: Date = new Date();
 
   @Column({ name: 'per_estado', default: 11 })
-  estado: number;
+  per_estado: number;
 
   @Column({ name: 'per_eliminado', default: false })
-  eliminado: boolean;
+  per_eliminado: boolean;
 }

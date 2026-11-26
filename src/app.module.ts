@@ -1,13 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { CultivoEntity } from './micro/cultivo/entities/cultivo.entity';
+import { ExtensionEntity } from './micro/extension_pec/entities/extension.entity';
+import { PecuariaEntity } from './micro/pecuario/entities/pecuario.entity';
+import { PersonaEntity } from './micro/persona/entities/persona.entity';
+import { PersonaModule } from './micro/persona/persona.module';
 import { Productor } from './micro/productor/entities/productor.entity';
 import { ProductorModule } from './micro/productor/productor.module';
-import { HttpExceptionFilter } from './utils/http-exception.filter';
-import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
+import { UbicacionEntity } from './micro/ubicacion/entities/ubicacion.entity';
 import { HealthModule } from './system/health/health.module';
+import { HeaderApiKeyStrategy } from './utils/apiKey.strategy';
+import { HttpExceptionFilter } from './utils/http-exception.filter';
 
 @Module({
   imports: [
@@ -15,7 +21,7 @@ import { HealthModule } from './system/health/health.module';
       isGlobal: true,
       envFilePath: '.des.env',
     }),
-    /* TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST_DATABASE,
       port: Number(process.env.PORT_DATABASE),
@@ -27,33 +33,35 @@ import { HealthModule } from './system/health/health.module';
       synchronize: false,
       retryDelay: Number(process.env.RETRYDELAY_DATABASE),
       retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
-    }),*/
-    TypeOrmModule.forRootAsync({
-      name: 'renagroConnection',
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: Number(config.get<number>('DB_PORT')),
-        username: config.get<string>('DB_USERNAME'),
-        password: String(config.get<string>('DB_PASSWORD')),
-        database: config.get<string>('DB_NAME'),
-        schema: config.get<string>('DB_SCHEMA_INTEROPERABILIDAD'),
-        entities: [],
-        synchronize: false,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-        extra: {
-          max: Number(config.get<number>('DB_POOL_MAX')) || 2,
-        },
-        retryDelay: Number(config.get<number>('RETRYDELAY_DATABASE')),
-        retryAttempts: Number(config.get<number>('RETRYATTEMPTS_DATABASE')),
-      }),
     }),
-    //ProductorModule,
+    // Conexion para interoperabilidad
+    TypeOrmModule.forRoot({
+      name: 'interoperabilidad',
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      schema: process.env.DB_SCHEMA_INTEROPERABILIDAD,
+      entities: [
+        CultivoEntity,
+        ExtensionEntity,
+        PecuariaEntity,
+        PersonaEntity,
+        UbicacionEntity,
+      ],
+      synchronize: false,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+      retryDelay: Number(process.env.RETRYDELAY_DATABASE),
+      retryAttempts: Number(process.env.RETRYATTEMPTS_DATABASE),
+    }),
+
+    ProductorModule,
     HealthModule,
+    PersonaModule,
   ],
   controllers: [],
   providers: [

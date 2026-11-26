@@ -20,7 +20,7 @@ async function bootstrap() {
    * Pruebas/internas { cors: false }
    * Producción/Dominio { cors: true }
    */
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, { cors: false });
   app.useGlobalPipes(new ValidationPipe());
 
   const NAME_PROYECT = process.env.NAME_PROYECT || '';
@@ -51,6 +51,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(String(NAME_PROYECT), app, document);
+  app.setGlobalPrefix(String(NAME_PROYECT));
   await app.listen(PORT_DEFAULT);
 }
 void bootstrap();
