@@ -488,7 +488,6 @@ LEFT JOIN sc_renagro_mag.catalogo cat_inst
 	AND cat_inst.cat_codigo = TRIM(b.bol_exten_agricola_institu)
 WHERE
 	(b.bol_eliminado IS NOT TRUE OR b.bol_eliminado IS NULL)
-AND TRIM(p.per_identificacion) = '0800510687'
 GROUP BY
 	p.per_identificacion,
 	b.bol_id,
@@ -509,7 +508,7 @@ LIMIT 5</sql>
         <type>String</type>
         <storagetype>normal</storagetype>
         <name>ext_numero_cedula</name>
-        <length>2147483647</length>
+        <length>255</length>
         <precision>-1</precision>
         <origin>sc_renagro_mag-extension</origin>
         <comments>ext_numero_cedula</comments>
